@@ -2,15 +2,58 @@
 
 //Variables
 
-var randomLetter = "";
-var yourGuess = "";
 var winCount= 0;
 var lossCount = 0;
-var guessSoFar = [abcdefghijklmnopqrstuvwxyz];
+var guessSoFar = [];
 var guessLeft = 9;
+
+document.onkeyup = function(event){
+  var yourGuess = event.key;
+  console.log(yourGuess);
+
+  if (yourGuess === randomLetter) {
+     winCount++;
+     resetGame();
+     
+
+  } else if (guessLeft > 0 && yourGuess != randomLetter){
+    guessLeft--;
+    guessSoFar.push(yourGuess);
+
+  } else {
+    lossCount++;
+    resetGame();
+    
+  }
+
+
+console.log(randomLetter + "rL");
+document.getElementById('wins').innerHTML = 'Wins: ' + winCount;
+document.getElementById('losses').innerHTML = 'Losses: ' + lossCount;
+document.getElementById('guess-left').innerHTML = 'Guesses Left: ' + guessLeft;
+document.getElementById('guesses-so-far').innerHTML = 'Guesses So Far: ' + guessSoFar;
+}
+
+function resetGame(){
+    guessLeft = 9;
+    guessSoFar = [];
+    randomLetter = getRandomLetter();
+}
+
+
+//Random Letter Function
+
+var alphabet = "abcdefghijklmnopqrstuvwxyz";
+function getRandomLetter() {
+  return alphabet[Math.floor(Math.random() * alphabet.length)];
+  console.log(randomLetter);
+}
+var randomLetter = getRandomLetter();
+
 
 
 /*
+
 rps.initializeElements(
       document.getElementById('your-pick'),
       document.getElementById('my-pick'),
@@ -31,7 +74,7 @@ rps.initializeElements(
         rps.resetGame();
       }
     };
-*/
+
 
 //For printing Guesses So Far
 
@@ -89,4 +132,3 @@ if (yourGuess === randomLetter) {
 /*var myHeading = document.querySelector('h1');
 myHeading.textContent = 'Hello World!'; */
 
-</script>
